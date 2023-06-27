@@ -10,6 +10,7 @@
 	<select id="getUserList" parameterType="User" 
         						resultType="User">
 		select u.id,
+			u.password,
 			u.name,
 			u.age,
 			u.phone,
@@ -23,6 +24,7 @@
 	 <select id="getUser" parameterType="Integer" 
 	 						resultType="User">
 	 	select u.id,
+	 		u.password,
 			u.name,
 			u.age,
 			u.phone,
@@ -72,7 +74,15 @@
 			, now()		
 		)
 	]]>	 
-    </insert>	    
+    </insert>	
+    
+    <!-- login user -->
+	<select id = "login" parameterType="User" 
+								resultType="User"> 
+		select *
+		from tbl_user u
+		where u.id = #{id} and u.password = #{password}
+	</select>
     
 	<!-- update user -->
 	<update id = "modify" parameterType="User"> 

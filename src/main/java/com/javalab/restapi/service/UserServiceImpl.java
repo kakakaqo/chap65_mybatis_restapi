@@ -45,6 +45,11 @@ public class UserServiceImpl implements UserService {
 	public Integer remove(Integer id) {
 		return dao.remove(id);
 	}
+	
+	@Override
+	public User login(User user) {
+		return dao.login(user);
+	}
 
 
 }

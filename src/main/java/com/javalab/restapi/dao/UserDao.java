@@ -20,4 +20,5 @@ public interface UserDao {
 	Integer register2(User userUser);
 	Integer modify(User user);
 	Integer remove(Integer id);
+	User login(User user);
 }

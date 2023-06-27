@@ -13,5 +13,6 @@ public interface UserService {
 	Integer register2(User user);
 	Integer modify(User user);
 	Integer remove(Integer id);
+	User login(User user);
 
 }

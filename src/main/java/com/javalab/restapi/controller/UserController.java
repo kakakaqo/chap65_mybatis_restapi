@@ -3,6 +3,8 @@ package com.javalab.restapi.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,10 +17,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.javalab.restapi.service.UserService;
 import com.javalab.restapi.vo.User;
 
+import lombok.extern.slf4j.Slf4j;
+
 /*
  * @RestController : 모든 메소드의 응답 결과를 JSON 타입 문자열로 반환
  */
 
+@Slf4j
 @RestController
 public class UserController {
 
@@ -68,6 +73,21 @@ public class UserController {
 	@PostMapping("/register")
 	public void register(@RequestBody User user) {
 		userService.register2(user);
+	}
+	
+	// 로그인 처리 메소드
+	@PostMapping("/login")
+	public ResponseEntity<?> login(@RequestBody User user) {
+		log.info("login메소드 user.toString()" + user.toString());
+		User loginUser = userService.login(user);
+		
+		if (loginUser != null) {
+			// 로그인 성공시
+			return new ResponseEntity<>(loginUser, HttpStatus.OK);
+		} else {
+			// 로그인 실패시
+			return new ResponseEntity<>("일치하는 사용자가 없습니다", HttpStatus.UNAUTHORIZED);
+		}
 	}
 	
 	
